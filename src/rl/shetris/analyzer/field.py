@@ -277,5 +277,33 @@ class ElevationAnalyzer:
         return np.count_nonzero((elevations > limit) | (elevations < -limit))
 
 
+def elevation_test():
+    from src.util.fieldfac import FieldReader, FieldFactory
+
+    col = np.array((0, 0, 0))
+    print(np.count_nonzero(col))
+
+    print("Sample field")
+    f = FieldReader.read_from_file("checks/check_elevation")
+    print(ElevationAnalyzer.get_elevations(f))
+    print(ElevationAnalyzer.get_n_level(f, 1))
+    print(ElevationAnalyzer.get_n_floor_2(f))
+
+    print()
+    print(ElevationAnalyzer.get_n_level_greater(f, 2))
+    print(ElevationAnalyzer.get_n_level_less(f, -2))
+    print(ElevationAnalyzer.get_n_level_abs_greater(f, 2))
+
+    f = FieldFactory.get_all_zeros((20, 10))
+    print(ElevationAnalyzer.get_elevations(f))
+    print(ElevationAnalyzer.get_n_level(f, 1))
+    print(ElevationAnalyzer.get_n_floor_2(f))
+
+    print()
+    print(ElevationAnalyzer.get_n_level_greater(f, 2))
+    print(ElevationAnalyzer.get_n_level_less(f, -2))
+    print(ElevationAnalyzer.get_n_level_abs_greater(f, 2))
+
+
 if __name__ == "__main__":
     pass
