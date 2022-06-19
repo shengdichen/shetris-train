@@ -159,5 +159,40 @@ def height_test():
     print(HeightAnalyzer.get_height_sum(f))
 
 
+class ElevationAnalyzer:
+    """
+    Probably the best judge of stacking quality
+
+    Convention:
+    Elevation is defined as:
+        Left-Col-Height - Right-Col-Height
+    i.e., elevation is by definition DIFF in height of neighboring columns
+
+    Thus,
+    1.  a field of constantly decreasing height from left to right
+    ->  all positive elevation values
+    2.  the returned np.ndarray has length of (n_cols - 1)
+
+    NOTE:
+    extension documentation at:
+        https://tetris.wiki/Stack_shape_terminology
+        https://tetris.wiki/Stacking_for_Tetrises
+
+    """
+
+    @staticmethod
+    def get_elevations(field: np.ndarray) -> np.ndarray:
+        """
+        Get all elevations
+
+        :param field:
+        :return:
+        """
+
+        heights_rel = HeightAnalyzer.get_heights_relative(field)
+
+        return heights_rel[:-1] - heights_rel[1:]
+
+
 if __name__ == "__main__":
     pass
