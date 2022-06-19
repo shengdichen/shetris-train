@@ -20,6 +20,7 @@
 from typing import Any
 
 import gym
+import numpy as np
 
 
 class SpaceInspector:
@@ -70,6 +71,58 @@ class SpaceInspector:
         print(
             "Checking entry {0} in space {1}: {2}".format(entry, space, entry in space)
         )
+
+    @staticmethod
+    def inspect_discrete() -> None:
+        """
+        Inspect the Discrete() space
+            ->  entry is int
+
+        :return:
+        """
+
+        space = gym.spaces.Discrete(7)
+        SpaceInspector.inspect_entries(space)
+
+        entry_1, entry_2 = 6, 7
+        SpaceInspector.check_in_space(space, entry_1)
+        SpaceInspector.check_in_space(space, entry_2)
+
+    @staticmethod
+    def inspect_multidiscrete() -> None:
+        """
+        Inspect the MultiDiscrete() space
+            ->  entry is np.array
+            ->  raw-list is also acceptable as entry's type
+
+        :return:
+        """
+
+        space = gym.spaces.MultiDiscrete([10, 10, 7])
+        SpaceInspector.inspect_entries(space)
+
+        entry_1, entry_2 = np.append(np.array([1, 2]), 6), np.array([1, 2, 7])
+        SpaceInspector.check_in_space(space, entry_1)
+        SpaceInspector.check_in_space(space, entry_2)
+
+    @staticmethod
+    def inspect_tuple() -> None:
+        """
+        Inspect the Tuple() space:
+            (entry-of-space1, entry-of-space2, ...)
+            ->  which is a tuple
+
+        :return:
+        """
+
+        space = gym.spaces.Tuple(
+            (gym.spaces.Discrete(7), gym.spaces.MultiDiscrete([10, 10]))
+        )
+        SpaceInspector.inspect_entries(space)
+
+        entry_1, entry_2 = (5, np.array((1, 9))), (5, np.array((1, 10)))
+        SpaceInspector.check_in_space(space, entry_1)
+        SpaceInspector.check_in_space(space, entry_2)
 
 
 if __name__ == "__main__":
