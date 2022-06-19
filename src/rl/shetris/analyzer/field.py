@@ -72,6 +72,39 @@ class HeightAnalyzer:
 
         return np.apply_along_axis(_find_min_non_zero, 0, field, field.shape[0] - 1)
 
+    @staticmethod
+    def get_height_max(field: np.ndarray) -> int:
+        """
+        Get the max height of the entire field
+
+        :param field:
+        :return:
+        """
+
+        return np.amax(HeightAnalyzer.get_heights_absolute(field))
+
+    @staticmethod
+    def get_height_min(field: np.ndarray) -> int:
+        """
+        Get the min height of the entire field
+
+        :param field:
+        :return:
+        """
+
+        return np.amin(HeightAnalyzer.get_heights_absolute(field))
+
+    @staticmethod
+    def get_height_sum(field: np.ndarray) -> int:
+        """
+        Get the sum of heights of all columns of the entire field
+
+        :param field:
+        :return:
+        """
+
+        return HeightAnalyzer.get_heights_absolute(field).sum()
+
 
 if __name__ == "__main__":
     pass
