@@ -366,6 +366,17 @@ class HoleAnalyzer:
 
         return np.apply_along_axis(HoleAnalyzer.get_n_holes_col, 0, field)
 
+    @staticmethod
+    def get_n_holes_field(field: np.ndarray) -> int:
+        """
+        Find holes of a field
+
+        :return:
+        """
+
+        n_holes_cols = HoleAnalyzer.get_n_holes_cols(field)
+        return n_holes_cols.sum()
+
 
 if __name__ == "__main__":
     pass
