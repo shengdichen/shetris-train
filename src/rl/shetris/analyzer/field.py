@@ -378,5 +378,26 @@ class HoleAnalyzer:
         return n_holes_cols.sum()
 
 
+def hole_test():
+    from src.util.fieldfac import FieldReader, FieldFactory
+
+    print("Sample field")
+    f = FieldReader.read_from_file("checks/check_holes")
+    print(HoleAnalyzer.get_holes_col(f[:, 0]))
+    print(HoleAnalyzer.get_holes_col(f[:, 9]))
+    print(HoleAnalyzer.get_n_holes_cols(f))
+    print(HoleAnalyzer.get_n_holes_field(f))
+
+    print("Empty field")
+    f = FieldFactory.get_all_zeros((20, 10))
+    print(HoleAnalyzer.get_n_holes_cols(f))
+    print(HoleAnalyzer.get_n_holes_field(f))
+
+    print("Full field")
+    f = FieldFactory.get_all_ones((20, 10))
+    print(HoleAnalyzer.get_n_holes_cols(f))
+    print(HoleAnalyzer.get_n_holes_field(f))
+
+
 if __name__ == "__main__":
     pass
