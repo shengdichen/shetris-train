@@ -207,6 +207,21 @@ class ElevationAnalyzer:
         elevations = ElevationAnalyzer.get_elevations(field)
         return np.count_nonzero(elevations == level)
 
+    @staticmethod
+    def get_n_floor_2(field: np.ndarray) -> int:
+        """
+        Get the number of 1-length floor:
+        1.  1 consecutive elevation of 0
+
+        Usage:
+        1.  encourage: necessary for an O-piece
+
+        :param field:
+        :return:
+        """
+
+        return ElevationAnalyzer.get_n_level(field, 0)
+
 
 if __name__ == "__main__":
     pass
