@@ -354,6 +354,18 @@ class HoleAnalyzer:
         col_under = col[idx_to_start:]
         return np.count_nonzero(col_under == np.False_)
 
+    @staticmethod
+    def get_n_holes_cols(field: np.ndarray) -> np.ndarray:
+        """
+        1.  find the num-of-cols of all columns
+            ->  returns a np.ndarray
+
+        :param field:
+        :return:
+        """
+
+        return np.apply_along_axis(HoleAnalyzer.get_n_holes_col, 0, field)
+
 
 if __name__ == "__main__":
     pass
