@@ -305,5 +305,55 @@ def elevation_test():
     print(ElevationAnalyzer.get_n_level_abs_greater(f, 2))
 
 
+class HoleAnalyzer:
+    """
+    Get the holes of a field
+
+    """
+
+    @staticmethod
+    def get_holes_col(col: np.ndarray) -> np.ndarray:
+        """
+        Find (numpy-)indexes of holes of a column:
+        1.  find the highest point
+        2.  find all entries (strictly) under the highest point
+        3.  find all indexes of zero entries of these
+
+        NOTE:
+        return type is np.ndarray, where length is apparently varying
+        ->  the results must be stored in a python's list (not np.ndarray!)
+
+        :return:
+        """
+
+        if np.count_nonzero(col) == 0:
+            return np.empty((0,), dtype=int)
+
+        idx_to_start = np.min(np.nonzero(col)) + 1
+        col_under = col[idx_to_start:]
+        col_inverted_under = np.logical_not(col_under)
+
+        idx_holes_under = np.nonzero(col_inverted_under)[0]
+        return idx_holes_under + idx_to_start
+
+    @staticmethod
+    def get_n_holes_col(col: np.ndarray) -> int:
+        """
+        1.  find the number of holes of a column
+
+        NOTE:
+        1.  slight hack using np's internal bool-type
+
+        :return:
+        """
+
+        if np.count_nonzero(col) == 0:
+            return 0
+
+        idx_to_start = np.min(np.nonzero(col)) + 1
+        col_under = col[idx_to_start:]
+        return np.count_nonzero(col_under == np.False_)
+
+
 if __name__ == "__main__":
     pass
