@@ -124,6 +124,23 @@ class SpaceInspector:
         SpaceInspector.check_in_space(space, entry_1)
         SpaceInspector.check_in_space(space, entry_2)
 
+    @staticmethod
+    def view_spaces(env: gym.Env) -> None:
+        """
+        View the action- and obs-spaces of a gym's env
+
+        :return:
+        """
+
+        act_space = env.action_space
+
+        print("Action")
+        SpaceInspector.inspect_entry_type(act_space)
+
+        obs_space = env.observation_space
+        print("Observation")
+        SpaceInspector.inspect_entry_type(obs_space)
+
 
 if __name__ == "__main__":
     pass
