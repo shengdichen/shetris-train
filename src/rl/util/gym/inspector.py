@@ -218,5 +218,11 @@ class MiscInspector:
         gym.utils.env_checker.check_env(env)
 
 
+def api_test():
+    env = gym.make("CartPole-v1")
+
+    MiscInspector.run_api_check(env)
+
+
 if __name__ == "__main__":
     pass
