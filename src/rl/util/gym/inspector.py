@@ -149,5 +149,42 @@ def spaces_test():
     ins.inspect_tuple()
 
 
+class WrapperInspector:
+    """
+    Inspect wrappers
+
+    """
+
+    @staticmethod
+    def view_wrapper(env: gym.Env) -> None:
+        """
+        Inspect wrappers of the env
+
+        :return:
+        """
+
+        print("original")
+        print("[SELF] env: ", env)
+        print("[UNWRAPPED-full] env: ", env.unwrapped, "\n")
+
+    @staticmethod
+    def view_wrapped_env(env: gym.Env) -> None:
+        """
+        1.  wrap an env
+        2.  inspect the newly wrapped env
+
+        :param env:
+        :return:
+        """
+
+        from gym.wrappers.time_limit import TimeLimit
+
+        wrapped_env = TimeLimit(env)
+        print("after wrapping with TimeLimit")
+        print("[SELF] env: ", wrapped_env)
+        print("[UNWRAPPED-once] env: ", wrapped_env.env)
+        print("[UNWRAPPED-full] env: ", wrapped_env.unwrapped)
+
+
 if __name__ == "__main__":
     pass
