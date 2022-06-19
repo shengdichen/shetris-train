@@ -193,6 +193,20 @@ class ElevationAnalyzer:
 
         return heights_rel[:-1] - heights_rel[1:]
 
+    @staticmethod
+    def get_n_level(field: np.ndarray, level: int) -> int:
+        """
+        Get the number of:
+        1.  specific elevation levels
+
+        :param field:
+        :param level:
+        :return:
+        """
+
+        elevations = ElevationAnalyzer.get_elevations(field)
+        return np.count_nonzero(elevations == level)
+
 
 if __name__ == "__main__":
     pass
