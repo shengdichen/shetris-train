@@ -198,5 +198,25 @@ def wrapper_test():
     WrapperInspector.view_wrapped_env(env)
 
 
+class MiscInspector:
+    """
+    Other inspections
+
+    """
+
+    @staticmethod
+    def run_api_check(env: gym.Env) -> None:
+        """
+        Check env's API compatibility with gym
+
+        :return:
+        """
+
+        import gym.utils.env_checker
+
+        print("api-checks by gym")
+        gym.utils.env_checker.check_env(env)
+
+
 if __name__ == "__main__":
     pass
