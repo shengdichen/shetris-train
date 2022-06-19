@@ -186,5 +186,17 @@ class WrapperInspector:
         print("[UNWRAPPED-full] env: ", wrapped_env.unwrapped)
 
 
+def wrapper_test():
+    from gym.envs.classic_control.cartpole import CartPoleEnv
+
+    env = CartPoleEnv()
+    WrapperInspector.view_wrapper(env)
+    WrapperInspector.view_wrapped_env(env)
+
+    env = gym.make("CartPole-v1")
+    WrapperInspector.view_wrapper(env)
+    WrapperInspector.view_wrapped_env(env)
+
+
 if __name__ == "__main__":
     pass
