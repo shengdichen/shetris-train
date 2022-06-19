@@ -142,5 +142,12 @@ class SpaceInspector:
         SpaceInspector.inspect_entry_type(obs_space)
 
 
+def spaces_test():
+    ins = SpaceInspector
+    ins.inspect_discrete()
+    ins.inspect_multidiscrete()
+    ins.inspect_tuple()
+
+
 if __name__ == "__main__":
     pass
