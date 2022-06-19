@@ -222,6 +222,60 @@ class ElevationAnalyzer:
 
         return ElevationAnalyzer.get_n_level(field, 0)
 
+    @staticmethod
+    def get_n_level_greater(field: np.ndarray, limit: int) -> int:
+        """
+        Get the number of significant elevations
+
+        Usage:
+        1.  punish: I-piece dependency
+
+        :param field:
+        :param limit:
+        :return:
+        """
+
+        elevations = ElevationAnalyzer.get_elevations(field)
+        return np.count_nonzero(elevations > limit)
+
+    @staticmethod
+    def get_n_level_less(field: np.ndarray, limit: int) -> int:
+        """
+        Get the number of significant elevations
+
+        Usage:
+        1.  punish: I-piece dependency
+
+        :param field:
+        :param limit:
+        :return:
+        """
+
+        elevations = ElevationAnalyzer.get_elevations(field)
+        return np.count_nonzero(elevations < limit)
+
+    @staticmethod
+    def get_n_level_abs_greater(field: np.ndarray, limit: int) -> int:
+        """
+        Get the number of significant elevations:
+        1.  elevation > +limit
+        2.  elevation < -limit
+
+        NOTE:
+        1.  it is up to the caller to guarantee that limit is of sensible
+        value, i.e. at least positive
+
+        Usage:
+        1.  pass in limit as +2 to punish I-piece dependency
+
+        :param field:
+        :param limit:
+        :return:
+        """
+
+        elevations = ElevationAnalyzer.get_elevations(field)
+        return np.count_nonzero((elevations > limit) | (elevations < -limit))
+
 
 if __name__ == "__main__":
     pass
