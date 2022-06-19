@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 gym = "*"
 pyglet = "*"
-stable-baselines3 = {extras = ["all"], version = "*"}
+stable-baselines3 = {extras = ["extra"], version = "*"}
 
 [dev-packages]
 
