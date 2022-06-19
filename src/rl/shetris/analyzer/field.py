@@ -133,5 +133,31 @@ class HeightAnalyzer:
         return heights_relative
 
 
+def height_test():
+    from src.util.fieldfac import FieldReader, FieldFactory
+
+    col = np.array((0, 0, 0))
+    print(np.count_nonzero(col))
+
+    print("Sample field")
+    f = FieldReader.read_from_file()
+    print(HeightAnalyzer.get_heights_absolute(f))
+    print(HeightAnalyzer.get_heights_relative(f, 1000))
+    print(HeightAnalyzer.get_height_max(f))
+    print(HeightAnalyzer.get_height_min(f))
+    print(HeightAnalyzer.get_height_sum(f))
+
+    print("Empty field")
+    f = FieldFactory.get_all_zeros((20, 10))
+    print(HeightAnalyzer.get_heights_absolute(f))
+    print(HeightAnalyzer.get_heights_relative(f, 1000))
+
+    print("Full field")
+    f = FieldFactory.get_all_ones((20, 10))
+    print(HeightAnalyzer.get_heights_absolute(f))
+    print(HeightAnalyzer.get_heights_relative(f, 1000))
+    print(HeightAnalyzer.get_height_sum(f))
+
+
 if __name__ == "__main__":
     pass
