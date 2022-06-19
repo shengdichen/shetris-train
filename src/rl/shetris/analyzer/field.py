@@ -17,6 +17,8 @@
 #
 
 
+from typing import Optional
+
 import numpy as np
 
 
@@ -104,6 +106,31 @@ class HeightAnalyzer:
         """
 
         return HeightAnalyzer.get_heights_absolute(field).sum()
+
+    @staticmethod
+    def get_heights_relative(
+        field: np.ndarray, clip_at: Optional[int] = None
+    ) -> np.ndarray:
+        """
+        Find the max-heights:
+        1.  relative: subtract all by lowest height
+        2.  from the bottom (range-style indexing)
+        3.  cap out at some max-value if provided
+
+        :param field:
+        :param clip_at:
+        :return:
+        """
+
+        heights_absolute = HeightAnalyzer.get_heights_absolute(field)
+
+        lowest_height = np.min(heights_absolute)
+        heights_relative = heights_absolute - lowest_height
+
+        if clip_at is not None:
+            return np.clip(heights_relative, a_min=None, a_max=clip_at)
+
+        return heights_relative
 
 
 if __name__ == "__main__":
