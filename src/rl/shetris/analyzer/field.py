@@ -218,6 +218,46 @@ class ElevationAnalyzer:
         return heights_rel[:-1] - heights_rel[1:]
 
     @staticmethod
+    def get_abs_elevations(field: np.ndarray) -> np.ndarray:
+        """
+        abs-value of elevations
+
+        NOTE:
+        output's dimension is (width-1)
+
+        :param field:
+        :return:
+        """
+
+        heights = HeightAnalyzer.get_heights_absolute(field)
+
+        return np.abs(heights[:-1] - heights[1:])
+
+    @staticmethod
+    def get_abs_elevations_padded(field: np.ndarray) -> np.ndarray:
+        """
+        abs-value of elevations, padded on the left and right with the absolute
+        height
+
+        NOTE:
+        output's dimension is (width+1)
+
+        :param field:
+        :return:
+        """
+
+        heights = HeightAnalyzer.get_heights_absolute(field)
+
+        abs_elevations = np.abs(heights[:-1] - heights[1:])
+        return np.concatenate(
+            (
+                np.array((heights[0],)),
+                abs_elevations,
+                np.array((heights[-1],)),
+            )
+        )
+
+    @staticmethod
     def get_sum_elevations(field: np.ndarray) -> int:
         """
         Find the sum of all elevations
@@ -227,6 +267,17 @@ class ElevationAnalyzer:
         """
 
         return ElevationAnalyzer.get_elevations(field).sum()
+
+    @staticmethod
+    def get_sum_abs_elevations(field: np.ndarray) -> int:
+        """
+        Find the sum of abs-values of all elevations
+
+        :param field:
+        :return:
+        """
+
+        return np.abs(ElevationAnalyzer.get_elevations(field)).sum()
 
     @staticmethod
     def get_n_level(field: np.ndarray, level: int) -> int:
