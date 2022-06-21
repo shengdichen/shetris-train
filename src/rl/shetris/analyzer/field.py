@@ -374,6 +374,9 @@ def elevation_test():
     print(ElevationAnalyzer.get_elevations(f))
     print(ElevationAnalyzer.get_n_level(f, 1))
     print(ElevationAnalyzer.get_n_floor_2(f))
+    print(ElevationAnalyzer.get_sum_abs_elevations(f))
+    print(ElevationAnalyzer.get_abs_elevations(f))
+    print(ElevationAnalyzer.get_abs_elevations_padded(f))
 
     print()
     print(ElevationAnalyzer.get_n_level_greater(f, 2))
