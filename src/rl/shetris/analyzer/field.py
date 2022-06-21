@@ -218,6 +218,17 @@ class ElevationAnalyzer:
         return heights_rel[:-1] - heights_rel[1:]
 
     @staticmethod
+    def get_sum_elevations(field: np.ndarray) -> int:
+        """
+        Find the sum of all elevations
+
+        :param field:
+        :return:
+        """
+
+        return ElevationAnalyzer.get_elevations(field).sum()
+
+    @staticmethod
     def get_n_level(field: np.ndarray, level: int) -> int:
         """
         Get the number of:
