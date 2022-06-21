@@ -108,6 +108,28 @@ class HeightAnalyzer:
         return HeightAnalyzer.get_heights_absolute(field).sum()
 
     @staticmethod
+    def get_height_avg(field: np.ndarray) -> float:
+        """
+        average of height
+
+        :param field:
+        :return:
+        """
+
+        return np.average(HeightAnalyzer.get_heights_absolute(field))
+
+    @staticmethod
+    def get_height_std(field: np.ndarray) -> float:
+        """
+        std-deviation of height
+
+        :param field:
+        :return:
+        """
+
+        return HeightAnalyzer.get_heights_absolute(field).std()
+
+    @staticmethod
     def get_heights_relative(
         field: np.ndarray, clip_at: Optional[int] = None
     ) -> np.ndarray:
@@ -146,6 +168,8 @@ def height_test():
     print(HeightAnalyzer.get_height_max(f))
     print(HeightAnalyzer.get_height_min(f))
     print(HeightAnalyzer.get_height_sum(f))
+    print(HeightAnalyzer.get_height_avg(f))
+    print(HeightAnalyzer.get_height_std(f))
 
     print("Empty field")
     f = FieldFactory.get_all_zeros((20, 10))
