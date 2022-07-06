@@ -215,6 +215,7 @@ class MiscInspector:
         import gym.utils.env_checker
 
         print("api-checks by gym")
+        env.reset()
         gym.utils.env_checker.check_env(env)
 
 

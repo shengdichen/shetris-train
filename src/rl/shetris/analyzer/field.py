@@ -44,7 +44,7 @@ class HeightAnalyzer:
         return np.apply_along_axis(_find_min_non_zero, 0, field)
 
     @staticmethod
-    def get_heights_absolute(field: np.ndarray) -> np.ndarray:
+    def get_height_abs(field: np.ndarray) -> np.ndarray:
         """
         Find the max-heights:
         1.  absolute
@@ -72,7 +72,7 @@ class HeightAnalyzer:
                 return 0
             return height - np.min(np.nonzero(col))
 
-        return np.apply_along_axis(_find_min_non_zero, 0, field, field.shape[0] - 1)
+        return np.apply_along_axis(_find_min_non_zero, 0, field, field.shape[0])
 
     @staticmethod
     def get_height_max(field: np.ndarray) -> int:
@@ -83,7 +83,7 @@ class HeightAnalyzer:
         :return:
         """
 
-        return np.amax(HeightAnalyzer.get_heights_absolute(field))
+        return np.amax(HeightAnalyzer.get_height_abs(field))
 
     @staticmethod
     def get_height_min(field: np.ndarray) -> int:
@@ -94,10 +94,10 @@ class HeightAnalyzer:
         :return:
         """
 
-        return np.amin(HeightAnalyzer.get_heights_absolute(field))
+        return np.amin(HeightAnalyzer.get_height_abs(field))
 
     @staticmethod
-    def get_height_sum(field: np.ndarray) -> int:
+    def get_height_abs_sum(field: np.ndarray) -> int:
         """
         Get the sum of heights of all columns of the entire field
 
@@ -105,7 +105,7 @@ class HeightAnalyzer:
         :return:
         """
 
-        return HeightAnalyzer.get_heights_absolute(field).sum()
+        return HeightAnalyzer.get_height_abs(field).sum()
 
     @staticmethod
     def get_height_avg(field: np.ndarray) -> float:
@@ -116,7 +116,7 @@ class HeightAnalyzer:
         :return:
         """
 
-        return np.average(HeightAnalyzer.get_heights_absolute(field))
+        return np.average(HeightAnalyzer.get_height_abs(field))
 
     @staticmethod
     def get_height_std(field: np.ndarray) -> float:
@@ -127,7 +127,7 @@ class HeightAnalyzer:
         :return:
         """
 
-        return HeightAnalyzer.get_heights_absolute(field).std()
+        return HeightAnalyzer.get_height_abs(field).std()
 
     @staticmethod
     def get_heights_relative(
@@ -144,7 +144,7 @@ class HeightAnalyzer:
         :return:
         """
 
-        heights_absolute = HeightAnalyzer.get_heights_absolute(field)
+        heights_absolute = HeightAnalyzer.get_height_abs(field)
 
         lowest_height = np.min(heights_absolute)
         heights_relative = heights_absolute - lowest_height
@@ -162,25 +162,25 @@ def height_test():
     print(np.count_nonzero(col))
 
     print("Sample field")
-    f = FieldReader.read_from_file()
-    print(HeightAnalyzer.get_heights_absolute(f))
+    f = FieldReader.read_from_file("checks/check_height")
+    print(HeightAnalyzer.get_height_abs(f))
     print(HeightAnalyzer.get_heights_relative(f, 1000))
     print(HeightAnalyzer.get_height_max(f))
     print(HeightAnalyzer.get_height_min(f))
-    print(HeightAnalyzer.get_height_sum(f))
+    print(HeightAnalyzer.get_height_abs_sum(f))
     print(HeightAnalyzer.get_height_avg(f))
     print(HeightAnalyzer.get_height_std(f))
 
     print("Empty field")
     f = FieldFactory.get_all_zeros((20, 10))
-    print(HeightAnalyzer.get_heights_absolute(f))
+    print(HeightAnalyzer.get_height_abs(f))
     print(HeightAnalyzer.get_heights_relative(f, 1000))
 
     print("Full field")
     f = FieldFactory.get_all_ones((20, 10))
-    print(HeightAnalyzer.get_heights_absolute(f))
+    print(HeightAnalyzer.get_height_abs(f))
     print(HeightAnalyzer.get_heights_relative(f, 1000))
-    print(HeightAnalyzer.get_height_sum(f))
+    print(HeightAnalyzer.get_height_abs_sum(f))
 
 
 class ElevationAnalyzer:
@@ -218,7 +218,7 @@ class ElevationAnalyzer:
         return heights_rel[:-1] - heights_rel[1:]
 
     @staticmethod
-    def get_abs_elevations(field: np.ndarray) -> np.ndarray:
+    def get_elevation_abs(field: np.ndarray) -> np.ndarray:
         """
         abs-value of elevations
 
@@ -229,7 +229,7 @@ class ElevationAnalyzer:
         :return:
         """
 
-        heights = HeightAnalyzer.get_heights_absolute(field)
+        heights = HeightAnalyzer.get_height_abs(field)
 
         return np.abs(heights[:-1] - heights[1:])
 
@@ -246,7 +246,7 @@ class ElevationAnalyzer:
         :return:
         """
 
-        heights = HeightAnalyzer.get_heights_absolute(field)
+        heights = HeightAnalyzer.get_height_abs(field)
 
         abs_elevations = np.abs(heights[:-1] - heights[1:])
         return np.concatenate(
@@ -269,7 +269,7 @@ class ElevationAnalyzer:
         return ElevationAnalyzer.get_elevations(field).sum()
 
     @staticmethod
-    def get_sum_abs_elevations(field: np.ndarray) -> int:
+    def get_elevation_abs_sum(field: np.ndarray) -> int:
         """
         Find the sum of abs-values of all elevations
 
@@ -374,8 +374,8 @@ def elevation_test():
     print(ElevationAnalyzer.get_elevations(f))
     print(ElevationAnalyzer.get_n_level(f, 1))
     print(ElevationAnalyzer.get_n_floor_2(f))
-    print(ElevationAnalyzer.get_sum_abs_elevations(f))
-    print(ElevationAnalyzer.get_abs_elevations(f))
+    print(ElevationAnalyzer.get_elevation_abs_sum(f))
+    print(ElevationAnalyzer.get_elevation_abs(f))
     print(ElevationAnalyzer.get_abs_elevations_padded(f))
 
     print()
