@@ -6,3 +6,7 @@ __pycache__/
 *$py.class
 
 src/rl/util/dqn/result/*
+src/engine
+src/entry
+src/front
+src/util
